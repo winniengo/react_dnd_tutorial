@@ -14,7 +14,6 @@ const style = {
 
 const cardSource = {
   beginDrag(props) {
-    // debugger
     return {
       id: props.id,
       index: props.index,
@@ -31,7 +30,6 @@ function collectSource(connect, monitor) {
 
 const cardTarget = {
   hover(props, monitor, component) {
-    // debugger
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
 

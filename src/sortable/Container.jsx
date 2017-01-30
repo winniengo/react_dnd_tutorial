@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+// import { DragDropContext } from 'react-dnd';
+// import HTML5Backend from 'react-dnd-html5-backend';
 import update from 'react/lib/update';
 
 import Card from './Card.jsx';
@@ -40,7 +40,6 @@ class Container extends Component {
   }
 
   moveCard(dragIndex, hoverIndex) {
-    // debugger
     const { cards } = this.state;
     const dragCard = cards[dragIndex];
 
@@ -73,4 +72,4 @@ class Container extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(Container);
+export default Container;

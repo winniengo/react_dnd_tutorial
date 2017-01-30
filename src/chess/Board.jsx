@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+// import { DragDropContext } from 'react-dnd';
+// import HTML5Backend from 'react-dnd-html5-backend';
 
 import BoardSquare from './BoardSquare.jsx';
 import Knight from './Knight.jsx';
@@ -59,4 +59,4 @@ Board.propTypes = {
   ).isRequired
 };
 
-export default DragDropContext(HTML5Backend)(Board);
+export default Board;
