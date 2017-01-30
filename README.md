@@ -234,3 +234,12 @@ BoardSquare.propTypes = {
 
 export default DropTarget(ItemTypes.KNIGHT, squareTarget, collect)(BoardSquare);
 ```
+
+## Sources
+
++ React DnD [Overview](http://react-dnd.github.io/react-dnd/docs-overview.html)
++ [HTML5](http://react-dnd.github.io/react-dnd/docs-html5-backend.html)
++ Chess Tutorial [Source Code](https://github.com/react-dnd/react-dnd/blob/master/examples/00%20Chessboard/Tutorial%20App/index.js)
++ [`DragSource`](http://react-dnd.github.io/react-dnd/docs-drag-source.html)
++ [`DropTarget`](http://react-dnd.github.io/react-dnd/docs-drop-target.html)
++ Sortable [Example](http://react-dnd.github.io/react-dnd/examples-sortable-simple.html) and [Source Code](https://github.com/react-dnd/react-dnd/tree/master/examples/04%20Sortable)
