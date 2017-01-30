@@ -58,7 +58,12 @@ export const ItemTypes = {
 
 ### Make your component draggable!
 
-#### Write the drag source.
+The [DragSource](http://react-dnd.github.io/react-dnd/docs-drag-source.html) is a higher-order component that makes your components draggable. It accepts three parameters:
++ `type`,
++ `spec`,
++ and `collect`.
+
+#### Write the drag source specification.
 
 For the `Knight`, the drag source specification is going to be simple because there is only a single draggable object in the whole application.
 
@@ -85,11 +90,6 @@ function collect(connect, monitor) {
 ```
 
 #### Wrap your component with `DragSource` to make it draggable.
-
-The [DragSource](http://react-dnd.github.io/react-dnd/docs-drag-source.html) is a higher-order component that accepts three parameters:
-+ `type`,
-+ `spec`,
-+ and `collect`.
 
 Making `Knight` a drag source.
 
@@ -138,3 +138,99 @@ export default DragSource(ItemTypes.KNIGHT, knightSource, collect)(Knight);
 
 ### Handle your dropped component!
 by making your components drop targets...
+
+Create a new _smart_ component called the `BoardSquare`. It renders a `Square`, but is also aware of its position. Update `Board` to use it.
+
+The [`DropTarget`](http://react-dnd.github.io/react-dnd/docs-drop-target.html) is a higher-order component that makes wrapped components react to the compatible items being dragged, hovered, or dropped on it. Like `DragSource`, it accepts three parameters:
++ `type`,
++ `spec`,
++ and `collect`.
+
+#### Write the drop target specification.
+
+For example,
+
+```js
+const squareTarget = {
+  drop(props, monitor) {
+    moveKnight(props.x, props.y);
+  }
+};
+```
+
+The `drop` method receives the props of the BoardSquare so it knows where to move the knight when it drops. In a real app, I might also use `monitor.getItem()` to retrieve the dragged item that the drag source returned from `beginDrag`.
+
+#### Write the collection function.
+
+```js
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+```
+
+#### Wrap your component with a `DropTarget`.
+
+Making `BoardSquare` a drop target.
+
+```js
+import React, { Component, PropTypes } from 'react';
+import Square from './Square';
+import { canMoveKnight, moveKnight } from './Game';
+import { ItemTypes } from './Constants';
+import { DropTarget } from 'react-dnd';
+
+const squareTarget = {
+  drop(props) {
+    moveKnight(props.x, props.y);
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
+class BoardSquare extends Component {
+  render() {
+    const { x, y, connectDropTarget, isOver } = this.props;
+    const black = (x + y) % 2 === 1;
+
+    return connectDropTarget(
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%'
+      }}>
+        <Square black={black}>
+          {this.props.children}
+        </Square>
+        {isOver &&
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            zIndex: 1,
+            opacity: 0.5,
+            backgroundColor: 'yellow',
+          }} />
+        }
+      </div>
+    );
+  }
+}
+
+BoardSquare.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  isOver: PropTypes.bool.isRequired
+};
+
+export default DropTarget(ItemTypes.KNIGHT, squareTarget, collect)(BoardSquare);
+```
