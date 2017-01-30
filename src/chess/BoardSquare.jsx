@@ -7,7 +7,7 @@ import { DropTarget } from 'react-dnd';
 // ItemTypes.KNIGHT => 'type'
 
 const squareTarget = {
-  drop: function(props, monitor) {
+  drop(props, monitor) {
     moveKnight(props.x, props.y);
   }
 }; // => 'spec'
