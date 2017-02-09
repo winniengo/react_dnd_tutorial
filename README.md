@@ -1,4 +1,4 @@
-Walkthrough of [React DnD Tutorial](http://react-dnd.github.io/react-dnd/docs-tutorial.html)!
+# Walkthrough of [React DnD Tutorial](http://react-dnd.github.io/react-dnd/docs-tutorial.html)
 
 Goal: build a tiny app with a Chess board and a lonely draggable Knight.
 
